@@ -11,10 +11,10 @@ class SXTTest < Test::Unit::TestCase
 
   def test_basic_selectors
     transform_html = <<~TEXT
-      <transform>
+      <template type="sxt">
         <_input/>
         <_div/>
-      </transform>
+      </template>
     TEXT
 
     sxt = SXT.new(transform_html)
