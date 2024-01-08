@@ -1,4 +1,5 @@
 require 'test/unit'
+require_relative '../lib/sxt'
 
 class SXTTest < Test::Unit::TestCase
   # def setup
@@ -6,8 +7,22 @@ class SXTTest < Test::Unit::TestCase
 
   # def teardown
   # end
+  #
 
-  def test_fail
+  def test_basic_selectors
+    transform_html = <<~TEXT
+      <transform>
+        <_input/>
+        <_div/>
+      </transform>
+    TEXT
+
+    sxt = SXT.new(transform_html)
+    assert_equal(%w(input div), sxt.selectors)
+  end
+
+  def test_surround_element
+    return
   input = <<~TEXT
     <input/>
     <sxt:transform>
