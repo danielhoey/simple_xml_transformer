@@ -1,4 +1,5 @@
 require 'nokogiri'
+require_relative './transformer'
 
 class SXT::Template
   def initialize(xml)
@@ -11,12 +12,23 @@ class SXT::Template
         end
 
         tag_name = element.name.gsub(/^_/,'')
-        @transforms_map[tag_name] = element
+        @transforms_map[tag_name] = SXT::Transformer.new(element)
       end
     end
   end
 
   def selectors
     @transforms_map.keys
+  end
+
+  def transform(html)
+    html_doc = Nokogiri::HTML(xml)
+    @transforms_map.each do |tag_name, transformer|
+      html_doc.css(tag_name).each do |element|
+        transformer.execute(element)
+      end
+    end
+
+    return html_doc.to_s
   end
 end

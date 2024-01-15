@@ -1,14 +1,7 @@
 require 'test/unit'
-require_relative '../lib/sxt'
+require_relative '../../lib/sxt'
 
-class SXTTest < Test::Unit::TestCase
-  # def setup
-  # end
-
-  # def teardown
-  # end
-  #
-
+class SXT::TemplateTest < Test::Unit::TestCase
   def test_basic_selectors
     template_html = <<~TEXT
       <template type="sxt">
